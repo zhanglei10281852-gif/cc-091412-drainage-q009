@@ -1,0 +1,5 @@
+{
+  "timezone": "Asia/Shanghai",
+  "roles": ["调度员", "运维人员", "监管人员", "只读用户"],
+  "eventIdExample": "event-0001"
+}
