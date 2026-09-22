@@ -1,0 +1,35 @@
+{
+  "timezone": "Asia/Shanghai",
+  "process": {
+    "units": [
+      {"id": "U-INTAKE", "name": "进水格栅", "params": {"screen_mm": 5, "design_flow_m3_h": 500}},
+      {"id": "U-COAG", "name": "混凝沉淀", "params": {"coagulant": "PAC", "dose_mg_l": [20, 60], "hrt_min": 90}},
+      {"id": "U-UF", "name": "超滤", "params": {"membrane_um": 0.02, "flux_lmh": 60}},
+      {"id": "U-RO", "name": "反渗透", "params": {"recovery": 0.75, "pressure_bar": 12}},
+      {"id": "U-DISINF", "name": "消毒", "params": {"agent": "NaClO", "ct_mg_min_l": 15}}
+    ]
+  },
+  "sampling_rules": [
+    {"id": "SR-INFLUENT", "point": "intake", "type": "进水常规", "frequency": "daily", "analytes": ["COD", "NH3-N", "TP"], "result_deadline_hours": 24, "required_for_release": false},
+    {"id": "SR-PROCESS", "point": "process", "type": "过程控制", "frequency": "per_shift", "analytes": ["turbidity", "pH"], "result_deadline_hours": 4, "required_for_release": false},
+    {"id": "SR-EFFLUENT", "point": "effluent", "type": "出厂全项", "frequency": "per_batch", "analytes": ["turbidity", "residual_chlorine", "E.coli", "COD", "BOD5"], "result_deadline_hours": 24, "required_for_release": true}
+  ],
+  "tanks": [
+    {"id": "T-01", "name": "清水池1", "capacity_m3": 500},
+    {"id": "T-02", "name": "清水池2", "capacity_m3": 500},
+    {"id": "T-03", "name": "再生水成品罐", "capacity_m3": 1000}
+  ],
+  "vehicles": [
+    {"plate": "京A10001", "capacity_m3": 20},
+    {"plate": "京A10002", "capacity_m3": 30},
+    {"plate": "京B20001", "capacity_m3": 25}
+  ],
+  "release_order_sample": {
+    "id": "RO-2026-0001",
+    "customer_id": "CUST-PARK",
+    "batch_id": "B-EXAMPLE",
+    "authorized_m3": 60,
+    "purpose": "绿化浇灌",
+    "sample_basis": "S-EXAMPLE"
+  }
+}
