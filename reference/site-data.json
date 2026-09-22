@@ -1,0 +1,91 @@
+{
+  "site": {
+    "name": "城东再生水厂",
+    "timezone": "Asia/Shanghai"
+  },
+  "process_units": [
+    {
+      "id": "UF",
+      "name": "超滤",
+      "design_flow_m3h": 500,
+      "allows_bypass": true,
+      "params": {
+        "transmembrane_pressure_kpa": 120,
+        "backwash_interval_min": 40,
+        "flux_lmh": 45
+      }
+    },
+    {
+      "id": "RO",
+      "name": "反渗透",
+      "design_flow_m3h": 300,
+      "allows_bypass": true,
+      "params": {
+        "operating_pressure_mpa": 1.2,
+        "recovery_rate": 0.75,
+        "conductivity_us_cm_limit": 500
+      }
+    },
+    {
+      "id": "UV-CL2",
+      "name": "紫外-次氯酸钠联合消毒",
+      "design_flow_m3h": 400,
+      "allows_bypass": true,
+      "params": {
+        "uv_dose_mj_cm2": 40,
+        "cl2_residual_mg_l": 0.3,
+        "contact_time_min": 30
+      }
+    }
+  ],
+  "sampling_rules": {
+    "release_sample_required": true,
+    "result_due_hours": 24,
+    "parameters": [
+      "cod_mg_l",
+      "bod_mg_l",
+      "nh3n_mg_l",
+      "turbidity_ntu",
+      "fecal_coliform_per_l"
+    ],
+    "notes": "成品放行批次必须直接留样；旁路水必须单独留样检测合格，不得沿用工段上游合格状态。"
+  },
+  "tanks": [
+    {"id": "T-101", "name": "进水调节罐", "capacity_m3": 2000},
+    {"id": "T-201", "name": "超滤产水罐", "capacity_m3": 1500},
+    {"id": "T-202", "name": "反渗透产水罐", "capacity_m3": 1200},
+    {"id": "T-301", "name": "1号成品水罐", "capacity_m3": 1000},
+    {"id": "T-302", "name": "2号成品水罐", "capacity_m3": 1000}
+  ],
+  "vehicles": [
+    {"id": "京A-RW001", "capacity_m3": 30},
+    {"id": "京A-RW002", "capacity_m3": 30},
+    {"id": "京A-RW003", "capacity_m3": 15}
+  ],
+  "customers": [
+    {"id": "C-01", "name": "城东工业用水有限公司"},
+    {"id": "C-02", "name": "市政园林养护公司"}
+  ],
+  "release_form_example": {
+    "release_no": "放行单样例：FX-YYYY-NNNN",
+    "fields": [
+      "batch_id（成品批次）",
+      "tank（罐装位）",
+      "volume_m3（放行体积）",
+      "customer_id（接收客户）",
+      "destination（交付地点）",
+      "vehicle_id（计划车辆）",
+      "sample_id（放行留样）",
+      "quality_basis（合格依据：qualified 或 provisional-检测待出）",
+      "issued_by / issued_at"
+    ]
+  },
+  "principals": {
+    "token-dispatcher-001": {"role": "调度员", "name": "值班调度"},
+    "token-operator-001": {"role": "运维人员", "name": "装车岗"},
+    "token-quality-001": {"role": "质量人员", "name": "质量负责人"},
+    "token-regulator-001": {"role": "监管人员", "name": "监管只读账户"},
+    "token-customer-c01": {"role": "客户", "customer_id": "C-01", "name": "城东工业用水有限公司"},
+    "token-customer-c02": {"role": "客户", "customer_id": "C-02", "name": "市政园林养护公司"}
+  }
+}
